@@ -56,21 +56,20 @@ body{
 }
 
 .subtitulo {
-    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
     padding-top: 28px;
     font-weight: 600;
     font-size: 24px;
-    color: #2445a0;
-    text-shadow: 3px 3px 3px #cecece;
+    color: #ffffff;
+    text-shadow: 3px 3px 3px #132c89;
 }
 
 .texto2 {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: 300;
     font-size: 18px;
-    color: #2e6dbe;
+    color: #ffffff;
     text-align: center;
-    text-shadow: 3px 3px 3px #cecece;
+    text-shadow: 3px 3px 3px #132c89;
 }
 
 .home{
