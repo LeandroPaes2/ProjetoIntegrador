@@ -57,16 +57,16 @@ body{
 
 .subtitulo {
     text-align: center;
-    padding-top: 28px;
+    padding-top: 40px;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 48px;
     color: #ffffff;
     text-shadow: 3px 3px 3px #132c89;
 }
 
 .texto2 {
     font-weight: 300;
-    font-size: 18px;
+    font-size: 20px;
     color: #ffffff;
     text-align: center;
     text-shadow: 3px 3px 3px #132c89;
@@ -168,7 +168,8 @@ body{
     max-width: 630px;
     height: auto;
     width: 100%;
-    border-radius: 80vh;}
+    border-radius: 80vh;
+    margin-top: 15%;}
 
 .sobre-texto h2{
     font-size: 60px;}
@@ -181,13 +182,15 @@ body{
     font-weight: 600;
     color: white;
     line-height: 1.7;
-    margin: 15px 0 30px;}
+    margin: 15px 0 30px;
+}
 
 .sobre-texto p{
     color: white;
     font-size: 20px;
     line-height: 1.4;
-    margin-bottom: 4rem;}
+    margin-bottom: 4rem;
+}
 
 .relatorio{
     color: aliceblue;
