@@ -1,7 +1,7 @@
 {
   "name": "servidor",
   "version": "1.0.0",
-  "description": "Exemplo de um servidor http",
+  "description": "Trabalho de PI",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -16,10 +16,11 @@
     "querido",
     "aluno"
   ],
-  "author": "Renato",
+  "author": "Isadora, Natalia, Leandro",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mysql2": "^3.9.7"
   }

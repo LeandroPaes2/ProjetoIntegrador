@@ -1,11 +1,12 @@
 import express from 'express';
-import rotaProduto from './Rotas/rotaProdutos.js';
 import rotaDado from './Rotas/rotaDados.js';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const host = "0.0.0.0"; 
-const porta = 3000;
+const porta = 4000;
 
 const app = express(); 
 
@@ -19,8 +20,6 @@ app.use(cors({
 
 app.use(express.static('./publico'));
 
-
-app.use('/produtos', rotaProduto);
 app.use('/dados', rotaDado);
 
 

@@ -1,5 +1,5 @@
 import Dados from "../Modelo/dados.js";
-import conectar from "./Conexao.js";
+import conectar from "./Conexao.js"
 export default class DadoDAO {
     constructor() {
         this.init();
@@ -78,8 +78,12 @@ export default class DadoDAO {
         await conexao.release();
         let listaDados=[];
         for (const registro of registros){
-            const dado = new Dados(registro['id'],
-                                            registro['data']    
+            const dado = new Dados(
+                                    registro['id'],
+                                    registro['data'],
+                                    registro['pH'],
+                                    registro['turbidez'],
+                                    registro['temperatura']
             );
             listaDados.push(dado);
         }

@@ -1,5 +1,4 @@
-import DadoDAO from "../Persistencia/dadoDAO";
-
+import DadoDAO from "../Persistencia/dadoDAO.js"
 export default class Dados{
 
     #id;

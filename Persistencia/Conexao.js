@@ -1,21 +1,18 @@
 import mysql from 'mysql2/promise';
 
-//Lembre-se, nossa aplicação neste momento estará se comunicando com outra aplicação.
-//Desse modo, nossa aplicação não tem controle sobre a outra.
-//O que exige uma comunicação assíncrona.
+
 export default async function conectar(){
     
     if (global.poolConexoes){
-        //retorna do pool uma conexão
         return await poolConexoes.getConnection();
     }
     else{
         global.poolConexoes = await mysql.createPool({
-            "host":'132.226.245.178',
-            "port":3306,
-            "database":"LP2_89695",
-            "user":"89695",
-            "password":"89695",
+            "host": process.env.DB_HOST, 
+            "port": process.env.PORTA_BANCO_DE_DADOS,
+            "database": process.env.DB_NAME,
+            "password": process.env.DB_PASSWORD,
+            "user": process.env.DB_USER,
             "connectTimeout":60000,
             "waitForConnections":true,
             "queueLimit":20
