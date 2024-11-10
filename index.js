@@ -5,17 +5,18 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const host = "0.0.0.0"; 
-const porta = 4000;
+const host = process.env.DB_HOST; 
+const porta = process.env.PORTA_BANCO_DE_DADOS;
+
 
 const app = express(); 
 
 app.use(express.json());
 
 app.use(cors({
-                "origin":"*",
-                "Access-Control-Allow-Origin":'*'
-        }));
+    origin: '*'  // Permite acesso de qualquer origem
+}));
+
 
 
 app.use(express.static('./publico'));

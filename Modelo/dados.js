@@ -68,7 +68,6 @@ export default class Dados{
     }
 
     async incluir(){
-
         const dadoDAO = new DadoDAO();
         await dadoDAO.incluir(this); 
     }

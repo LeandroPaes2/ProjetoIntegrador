@@ -6,26 +6,26 @@ export default class DadoDAO {
     }
 
     async init() {
-        try 
-        {
-            const conexao = await conectar(); //retorna uma conexão
+        try {
+            const conexao = await conectar();
             const sql = `
-            CREATE TABLE IF NOT EXISTS dados(
-                id INT NOT NULL AUTO_INCREMENT,
-                data DATE NOT NULL,
-                pH DECIMAL(10,2) NOT NULL,
-                turbidez DECIMAL(10,2) NOT NULL,
-                temperatura INT NOT NULL,
-                CONSTRAINT pk_dados PRIMARY KEY(id),
-            )
-        `;
+                CREATE TABLE IF NOT EXISTS dados(
+                    id INT NOT NULL AUTO_INCREMENT,
+                    data DATE NOT NULL,
+                    pH DECIMAL(10,2) NOT NULL,
+                    turbidez DECIMAL(10,2) NOT NULL,
+                    temperatura INT NOT NULL,
+                    CONSTRAINT pk_dados PRIMARY KEY(id)
+                )
+            `;
             await conexao.execute(sql);
+            console.log("Tabela `dados` criada ou já existente.");
             await conexao.release();
-        }
-        catch (e) {
-            console.log("Não foi possível iniciar o banco de dados: " + e.message);
+        } catch (e) {
+            console.log("Erro ao criar tabela `dados`: " + e.message);
         }
     }
+    
 
     async incluir(dado) {
         if (dado instanceof Dados) {
