@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const host = process.env.DB_HOST; 
-const porta = process.env.PORTA_BANCO_DE_DADOS;
+const host = '0.0.0.0'; 
+const porta = 4000;
 
 
 const app = express(); 

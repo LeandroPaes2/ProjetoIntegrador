@@ -1,5 +1,5 @@
 
-/*
+
 async consultarRelatorio(requisicao, resposta) {
     resposta.type("text/html");
 
@@ -29,4 +29,3 @@ async consultarRelatorio(requisicao, resposta) {
         this.responderErro(resposta, 400, "Requisição inválida! Consulte a documentação da API.");
     }
 }
-*/
