@@ -148,5 +148,43 @@ export default class DadoCtrl {
         }
     }
 
-    
+    async consultarRelatorio(req, res) {
+        res.type("text/html");
+
+        if (req.method === "GET") {
+            try {
+                const dados = await Dados.consultar();
+                let html = `
+                    <h1>Relatório de Dados</h1>
+                    <table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Data</th>
+                            <th>pH</th>
+                            <th>Turbidez</th>
+                            <th>Temperatura</th>
+                        </tr>`;
+
+                dados.forEach((dado) => {
+                    html += `
+                        <tr>
+                            <td>${dado.id}</td>
+                            <td>${dado.data}</td>
+                            <td>${dado.pH}</td>
+                            <td>${dado.turbidez}</td>
+                            <td>${dado.temperatura}</td>
+                        </tr>`;
+                });
+
+                html += "</table>";
+                res.status(200).send(html);
+            } catch (erro) {
+                res.status(500).send("Erro ao consultar dados: " + erro.message);
+            }
+        } else {
+            res.status(400).send("Requisição inválida! Consulte a documentação da API.");
+        }
+    }
+
+
 }

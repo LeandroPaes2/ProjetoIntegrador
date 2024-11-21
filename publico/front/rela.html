@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Sabesp</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">Sabesp</a>
+        <nav class="navbarra">
+            <a href="#id-home" class="active">Home</a>
+            <a href="#id-sobre">Sobre</a>
+            <a href="#id-relatorio">Relatório</a>
+            <a href="#id-contato">Contato</a>
+        </nav>
+    </header>
+
+    <section class="home" id="id-home">
+        <div class="home-conteudo">
+            <h3>Bem vindo à</h3>
+            <h1>Sabesp</h1>
+            <h3>Somos uma empresa de <span style="color: #53bafff7;">Tratamento de Água</span></h3>
+            <p>Uma Companhia de Saneamento Básico do Estado de São Paulo - Sabesp.</p>
+        </div>
+    </section>
+
+    <section class="relatorio" id="id-relatorio">
+        <div id="conteudo-relatorio">
+            <h1>Relatórios</h1>
+            <p>Carregando...</p>
+        </div>
+    </section>
+
+    <script>
+        async function carregarRelatorio() {
+    try {
+        const resposta = await fetch("http://localhost:4000/dados/relatorio");
+        console.log("Resposta HTTP:", resposta);
+        if (resposta.ok) {
+            const html = await resposta.text();
+            console.log("HTML Recebido:", html);
+            document.getElementById("conteudo-relatorio").innerHTML = html;
+        } else {
+            console.error("Erro ao carregar relatório. Status:", resposta.status);
+        }
+    } catch (erro) {
+        console.error("Erro na requisição:", erro);
+    }
+}
+
+    </script>
+</body>
+</html>

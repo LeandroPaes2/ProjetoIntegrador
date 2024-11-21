@@ -1,6 +1,4 @@
-
-
-async consultarRelatorio(requisicao, resposta) {
+/*async function consultarRelatorio(requisicao, resposta) {
     resposta.type("text/html");
 
     if (requisicao.method === "GET") {
@@ -29,3 +27,4 @@ async consultarRelatorio(requisicao, resposta) {
         this.responderErro(resposta, 400, "Requisição inválida! Consulte a documentação da API.");
     }
 }
+*/
