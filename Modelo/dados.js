@@ -61,9 +61,9 @@ export default class Dados{
         return{
             "id":this.#id,
             "data":this.#data,
-            "pH":this.pH,
-            "turbidez":this.turbidez,
-            "temperetura":this.temperatura
+            "pH":this.#pH,
+            "turbidez":this.#turbidez,
+            "temperetura":this.#temperatura
         }
     }
 
