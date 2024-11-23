@@ -1,5 +1,7 @@
 import Dados from "../Modelo/dados.js";
 import conectar from "./Conexao.js"
+import moment from "moment";
+
 export default class DadoDAO {
     constructor() {
         this.init();
@@ -28,22 +30,32 @@ export default class DadoDAO {
     
 
     async incluir(dado) {
-        if (dado instanceof Dados) {
-            const conexao = await conectar();
-            const sql = `INSERT INTO dados(data,ph,turbidez,temperatura)
-                values(str_to_date(?,'%d/%m/%Y'),?,?,?)
-            `;
-            let parametros = [
-                dado.data,
-                dado.pH,
-                dado.turbidez,
-                dado.temperatura
-            ]; 
-            const resultado = await conexao.execute(sql, parametros);
-            dado.id = resultado[0].insertId;
-            await conexao.release(); 
+        const conexao = await conectar();
+        try {
+            if (dado instanceof Dados) {
+                // Valida e converte a data
+                const dataFormatada = moment(dado.data, "DD-MM-YYYY").format("YYYY-MM-DD");
+    
+                const sql = `INSERT INTO dados(data, ph, turbidez, temperatura)
+                    VALUES (STR_TO_DATE(?, '%Y-%m-%d'), ?, ?, ?)
+                `;
+                const parametros = [
+                    dataFormatada, // Usa a data no formato 'YYYY-MM-DD'
+                    dado.pH,
+                    dado.turbidez,
+                    dado.temperatura
+                ];
+                const [resultado] = await conexao.execute(sql, parametros);
+                dado.id = resultado.insertId;
+            }
+        } catch (erro) {
+            console.error("Erro ao incluir dado:", erro.message);
+            throw erro;
+        } finally {
+            await conexao.release();
         }
     }
+    
     async alterar(dado) {
         if (dado instanceof Dados) {
             const conexao = await conectar();
@@ -65,7 +77,7 @@ export default class DadoDAO {
         let sql = "";
         let parametros = [];
         if (isNaN(parseInt(termo))) {
-            sql = "SELECT * FROM dados WHERE data LIKE ? ORDER BY data";
+            sql = "SELECT * FROM dados WHERE id LIKE ? ORDER BY data";
             parametros.push("%"+termo+"%");
         }
         else{

@@ -6,13 +6,14 @@ export default class DadoCtrl {
         resposta.type("application/json");
 
         if (requisicao.method === 'POST' && requisicao.is("application/json")) {
+            
             const data = requisicao.body.data;
             const pH = requisicao.body.pH;
             const turbidez = requisicao.body.turbidez;
             const temperatura = requisicao.body.temperatura;
 
             if (data && pH >= 0 && turbidez >= 0 && temperatura >= 0) {
-                const dado = new Dados(id, data, pH, turbidez, temperatura);
+                const dado = new Dados(null, data, pH, turbidez, temperatura);
 
                 try {
                     await dado.incluir();

@@ -3,53 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório Sabesp</title>
+    <title>Tabela Relatório</title>
     <link rel="stylesheet" href="estilo.css">
+    
 </head>
 <body>
     <header class="header">
         <a href="#" class="logo">Sabesp</a>
+
         <nav class="navbarra">
-            <a href="#id-home" class="active">Home</a>
-            <a href="#id-sobre">Sobre</a>
-            <a href="#id-relatorio">Relatório</a>
-            <a href="#id-contato">Contato</a>
+            <a href="webETA.html" style="--i:1" class="active">Home</a>
+            <a href="#id-contato" style="--i:4">Contato</a>
         </nav>
     </header>
+    
+    <div id="tabela"></div>
 
-    <section class="home" id="id-home">
-        <div class="home-conteudo">
-            <h3>Bem vindo à</h3>
-            <h1>Sabesp</h1>
-            <h3>Somos uma empresa de <span style="color: #53bafff7;">Tratamento de Água</span></h3>
-            <p>Uma Companhia de Saneamento Básico do Estado de São Paulo - Sabesp.</p>
+    <section id="id-contato">
+        <div class="">
+            <h2 class="subtitulo">Contato</h2>
+                <br>
+                <br>
+                    <p class="texto2" style="margin-top: 10px;"> <strong style="font-size: 28px;"> Instagram </strong> <br>@sabespcia</p>
+                <br>
+                    <p class="texto2" style="margin-top: 10px;"> <strong style="font-size: 28px;"> Número </strong> <br><br>0800 055 0195</p>
+                <br>
+                    <p class="texto2" style="margin-top: 10px;"> <strong style="font-size: 28px;"> Email </strong> <br><br>atendimento@sabesp.com.br</p>
+                <br>
+                <br>
+                <br>
         </div>
+        <span class="home-imgHover"></span>
     </section>
-
-    <section class="relatorio" id="id-relatorio">
-        <div id="conteudo-relatorio">
-            <h1>Relatórios</h1>
-            <p>Carregando...</p>
-        </div>
-    </section>
-
-    <script>
-        async function carregarRelatorio() {
-    try {
-        const resposta = await fetch("http://localhost:4000/dados/relatorio");
-        console.log("Resposta HTTP:", resposta);
-        if (resposta.ok) {
-            const html = await resposta.text();
-            console.log("HTML Recebido:", html);
-            document.getElementById("conteudo-relatorio").innerHTML = html;
-        } else {
-            console.error("Erro ao carregar relatório. Status:", resposta.status);
-        }
-    } catch (erro) {
-        console.error("Erro na requisição:", erro);
-    }
-}
-
-    </script>
 </body>
+    <script src="../js/tabela.js"></script>
 </html>
