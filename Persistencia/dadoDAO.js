@@ -33,14 +33,16 @@ export default class DadoDAO {
         const conexao = await conectar();
         try {
             if (dado instanceof Dados) {
-                // Valida e converte a data
-                const dataFormatada = moment(dado.data, "DD-MM-YYYY").format("YYYY-MM-DD");
+                // Usa a data atual se não for fornecida
+                const dataFormatada = dado.data 
+                    ? moment(dado.data, "DD-MM-YYYY").format("YYYY-MM-DD") 
+                    : moment().format("YYYY-MM-DD");
     
                 const sql = `INSERT INTO dados(data, ph, turbidez, temperatura)
                     VALUES (STR_TO_DATE(?, '%Y-%m-%d'), ?, ?, ?)
                 `;
                 const parametros = [
-                    dataFormatada, // Usa a data no formato 'YYYY-MM-DD'
+                    dataFormatada || null, // Garante uma data válida
                     dado.pH,
                     dado.turbidez,
                     dado.temperatura
@@ -55,6 +57,7 @@ export default class DadoDAO {
             await conexao.release();
         }
     }
+    
     
     async alterar(dado) {
         if (dado instanceof Dados) {

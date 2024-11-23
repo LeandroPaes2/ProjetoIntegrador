@@ -1,4 +1,5 @@
 import DadoDAO from "../Persistencia/dadoDAO.js"
+import moment from "moment";
 export default class Dados{
 
     #id;
@@ -51,7 +52,7 @@ export default class Dados{
     constructor(id=0, data="", pH=0, turbidez=0, temperatura=0)
     {
         this.#id=id;
-        this.#data=data;
+        this.#data=data || moment().format("YYYY-MM-DD");
         this.#pH=pH;
         this.#turbidez=turbidez;
         this.#temperatura=temperatura;
