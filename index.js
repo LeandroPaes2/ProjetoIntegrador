@@ -23,10 +23,10 @@ app.use(express.static('./publico'));
 
 app.use('/dados', rotaDado);
 
-
+/*
 app.listen(porta, host, () => {
     console.log(`Servidor escutando em http://${host}:${porta}`)
-});
+});*/
 
 
 export default app;
