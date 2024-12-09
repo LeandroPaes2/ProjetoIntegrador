@@ -5,7 +5,7 @@ async function exibirTabela() {
 
     try {
         // Fazendo requisição para o backend
-        const resposta = await fetch('http://localhost:4000/dados'); // Substitua pelo seu endpoint
+        const resposta = await fetch('https://projeto-integrador-amber.vercel.app/dados'); // Substitua pelo seu endpoint
         if (!resposta.ok) throw new Error("Erro ao buscar dados: " + resposta.status);
 
         const dados = await resposta.json();
