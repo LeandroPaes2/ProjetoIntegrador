@@ -96,6 +96,18 @@ async function exibirTabela() {
                     <td>Percentual de Temperaturas Acima de 30ºC</td>
                     <td>${estatisticas.percentualAcima30}%</td>
                 </tr>
+                <tr>
+                    <td>Cal Hidratada (g/L)</td>
+                    <td>${estatisticas.calHidratada}</td>
+                </tr>
+                <tr>
+                    <td>Sulfato de Alumínio (mg/L)</td>
+                    <td>${estatisticas.sulfatoAluminio}</td>
+                </tr>
+                <tr>
+                    <td>Ácido Clorídrico (mL/L)</td>
+                    <td>${estatisticas.acidoCloridrico}</td>
+                </tr>
             `;
             tabelaEstatisticas.appendChild(corpoEstatisticas);
 
@@ -111,7 +123,7 @@ async function exibirTabela() {
     }
 }
 
-// Função para calcular as estatísticas finais
+// Função para calcular as estatísticas finais e os produtos necessários
 function calcularEstatisticas(dados) {
     let somaTemperatura = 0;
     let deltaTTotal = 0;
@@ -119,7 +131,10 @@ function calcularEstatisticas(dados) {
     let countAcima30 = 0;
     let count = dados.length;
     let temperaturas = [];
-    
+    let calHidratadaTotal = 0;
+    let sulfatoAluminioTotal = 0;
+    let acidoCloridricoTotal = 0;
+
     dados.forEach((dado, index) => {
         // Garantir que a temperatura é numérica
         if (isNaN(dado.temperatura)) {
@@ -138,6 +153,21 @@ function calcularEstatisticas(dados) {
             deltaTTotal += Math.abs(dado.temperatura - dados[index - 1].temperatura);
             countDeltaT++;
         }
+
+        // Calcular Cal Hidratada (Hidróxido de Cálcio) para aumentar pH
+        if (dado.pH < 7) {
+            calHidratadaTotal += (7 - dado.pH) * 1; // 1g de cal para cada 1L de água para aumentar 1 unidade de pH
+        }
+
+        // Calcular Sulfato de Alumínio (30mg/L por turbidez de 100 NTU)
+        if (dado.turbidez > 0) {
+            sulfatoAluminioTotal += (dado.turbidez / 100) * 30; // 30 mg/L por 100 NTU
+        }
+
+        // Calcular Ácido Clorídrico para reduzir pH
+        if (dado.pH > 7) {
+            acidoCloridricoTotal += (dado.pH - 7) * 10; // 10mL/L de ácido pCara reduzir 1 unidade de pH
+        }
     });
 
     // Se count for 0, retorna N/A para outras métricas
@@ -148,7 +178,10 @@ function calcularEstatisticas(dados) {
             desvioPadraoTemperatura: 'N/A',
             temperaturaMaxima: 'N/A',
             temperaturaMinima: 'N/A',
-            percentualAcima30: 'N/A'
+            percentualAcima30: 'N/A',
+            calHidratada: 'N/A',
+            sulfatoAluminio: 'N/A',
+            acidoCloridrico: 'N/A'
         };
     }
 
@@ -170,6 +203,9 @@ function calcularEstatisticas(dados) {
         desvioPadraoTemperatura,
         temperaturaMaxima,
         temperaturaMinima,
-        percentualAcima30
+        percentualAcima30,
+        calHidratada: calHidratadaTotal.toFixed(2),
+        sulfatoAluminio: sulfatoAluminioTotal.toFixed(2),
+        acidoCloridrico: acidoCloridricoTotal.toFixed(2)
     };
 }

@@ -80,11 +80,11 @@ export default class DadoDAO {
         let sql = "";
         let parametros = [];
         if (isNaN(parseInt(termo))) {
-            sql = "SELECT * FROM dados WHERE id LIKE ? ORDER BY data";
+            sql = "SELECT * FROM dados WHERE id LIKE ? ORDER BY id";
             parametros.push("%"+termo+"%");
         }
         else{
-            sql = "SELECT * FROM dados WHERE id = ? ORDER BY dados";
+            sql = "SELECT * FROM dados WHERE id = ? ORDER BY id";
             parametros.push(termo);
         }
         const conexao = await conectar();
