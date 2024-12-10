@@ -28,12 +28,36 @@ async function exibirTabela() {
                     <th>pH</th>
                     <th>Turbidez</th>
                     <th>Temperatura</th>
+                    <th>Cal Hidratada (g/L)</th>
+                    <th>Sulfato de Alumínio (mg/L)</th>
+                    <th>Ácido Clorídrico (mL/L)</th>
                 </tr>`;
             tabela.appendChild(cabecalho);
 
             // Corpo da tabela de dados
             const corpo = document.createElement('tbody');
-            dados.forEach((dado, index) => {
+            dados.forEach((dado) => {
+                // Calcular Cal Hidratada (Hidróxido de Cálcio) para aumentar pH
+                let calHidratada = 0;
+                if (dado.pH < 7) {
+                    calHidratada = (7 - dado.pH) * 1000; // 1g de cal para cada 1L de água para aumentar 1 unidade de pH
+                }
+
+                // Calcular Sulfato de Alumínio (30mg/L por turbidez de NTU)
+                // Defina o valor de NTU
+                let sulfatoAluminio = 0;
+                if (dado.turbidez > 0) {
+                    sulfatoAluminio = (dado.turbidez / 100) * 30000; // 30 mg/L por 'ntu' NTU
+                }
+
+                // Calcular Ácido Clorídrico para reduzir pH
+                let acidoCloridrico = 0;
+                if (dado.pH > 7) {
+                    acidoCloridrico = (dado.pH - 7) * 1000; // 10mL/L de ácido para reduzir 1 unidade de pH
+                }
+
+
+                // Criar a linha da tabela com os valores calculados
                 const linha = document.createElement('tr');
                 linha.innerHTML = `
                     <td>${dado.id}</td>
@@ -41,6 +65,9 @@ async function exibirTabela() {
                     <td>${dado.pH}</td>
                     <td>${dado.turbidez}</td>
                     <td>${dado.temperatura}</td>
+                    <td>${calHidratada.toFixed(2)}</td> <!-- Cal Hidratada -->
+                    <td>${sulfatoAluminio.toFixed(2)}</td> <!-- Sulfato de Alumínio -->
+                    <td>${acidoCloridrico.toFixed(2)}</td> <!-- Ácido Clorídrico -->
                 `;
                 corpo.appendChild(linha);
             });
@@ -156,18 +183,19 @@ function calcularEstatisticas(dados) {
 
         // Calcular Cal Hidratada (Hidróxido de Cálcio) para aumentar pH
         if (dado.pH < 7) {
-            calHidratadaTotal += (7 - dado.pH) * 1; // 1g de cal para cada 1L de água para aumentar 1 unidade de pH
+            calHidratadaTotal += (7 - dado.pH) * 1000; // 1g de cal para cada 1L de água para aumentar 1 unidade de pH
         }
 
         // Calcular Sulfato de Alumínio (30mg/L por turbidez de 100 NTU)
         if (dado.turbidez > 0) {
-            sulfatoAluminioTotal += (dado.turbidez / 100) * 30; // 30 mg/L por 100 NTU
+            sulfatoAluminioTotal += (dado.turbidez / dado.turbidez) * 30000; // 30 mg/L por 100 NTU
         }
 
         // Calcular Ácido Clorídrico para reduzir pH
         if (dado.pH > 7) {
-            acidoCloridricoTotal += (dado.pH - 7) * 10; // 10mL/L de ácido pCara reduzir 1 unidade de pH
+            acidoCloridricoTotal += (dado.pH - 7) * 1000; // 10mL/L de ácido pCara reduzir 1 unidade de pH
         }
+
     });
 
     // Se count for 0, retorna N/A para outras métricas
